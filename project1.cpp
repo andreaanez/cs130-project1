@@ -34,75 +34,90 @@ Tst:: ~Tst()
 }
 
 // INSERT 
-string Tst::insert (string word, TstNode* node){ // pointer to a node 
-    string response = "oops !"; 
 
-     if (node == NULL) {
-        root = createNode(word);
-        response = word + "inserted, new count = 1";
-        return response;
+void Tst::insert (string word){
+    insertHelp(word,root);
+}
+
+
+void Tst::insertHelp (string word, TstNode* node){ // pointer to a node  
+    
+     if (root == NULL) {
+        node = root = createNode(word);
+        cout << node -> keyLeft << " inserted, new count = 1"<<endl;    
+        return;
     }
 
     if (node != NULL){
         // checking to see if already exists in the node we are in
         if (node -> keyRight == word){
             node -> countRight +=1;
-            response = word + " inserted, new count =" + std::to_string(node -> countRight); 
-            return response;
+            cout << node -> keyRight << " inserted, new count = " << std::to_string(node -> countRight)<<endl;
+            return;
         }
         if (node -> keyLeft == word){
             node -> countLeft +=1;
-            response = word + " inserted, new count =" + std::to_string(node -> countLeft); 
-            return response;
+            cout << node -> keyLeft << " inserted, new count = " << std::to_string(node -> countLeft) <<endl;
+            return;
         }
     
-        // if node is full -- find what path should go down left, right, mid 
-        if ((((node -> countLeft) >= 1)) && ((node -> countRight) >= 1)){
-            if ( word < (node -> keyLeft)) {
-                insert(word, node -> left);
-            }
-            if ( word > (node -> keyRight)){
-                insert (word, node -> right);
-            }
-
-            if ( (word > (node -> keyLeft) ) && (word < (node -> keyRight))){
-                insert (word, node -> mid);
-            }
-        }
-        
-        // if node is not full
     
         if ((node -> countRight) == 0 ){
             if (word < (node ->keyLeft)){
                 node -> countRight = node -> countLeft;
                 node -> keyRight = node -> keyLeft;
                 node -> countLeft = 1;
-                node -> keyLeft = word;
-                response = word + " inserted, new count = 1";
-                return response; 
+                node -> keyLeft = word; 
+                cout << node -> keyLeft << " inserted, new count = 1" <<endl;
+                return; 
             }
-            if (word >= (node -> keyLeft)) {
-
-                response = word + " inserted, new count = 1";
-                return response; 
+            if (word > (node -> keyLeft)) {
+                node -> keyRight = word;
+                node -> countRight += 1; 
+                cout << node -> keyRight << " inserted, new count = 1" <<endl;
+                return; 
 
             }
         }
-    }
-        return response;
-    }
-        
-   
 
-    //else do level order traversal until find the word, semi empty node or no word and a 
-    // NULL pointer 
+         // if node is full -- find what path should go down left, right, mid 
+        if ((((node -> countLeft) >= 1)) && ((node -> countRight) >= 1)){
+            if ( word < (node -> keyLeft)) {
+                if ((node ->left) == NULL){
+                    node->left = createNode(word);
+                    cout << (node -> left)-> keyLeft << " inserted, new count = 1"<<endl;
+                    return;
+                }
+                else {
+                    insertHelp(word, node -> left);
+                }
+            
+            }
+            if ( word > (node -> keyRight)){
+                if ((node ->right) == NULL){
+                    node->right = createNode(word);
+                    cout << (node -> right) -> keyLeft << " inserted, new count = 1"<<endl;
+                    return;
+                }
+                else {
+                    insertHelp(word, node -> right);
+                }
+            }
 
-    // do we find it in any of the nodes as we traverse the tree ?
-    // no ? 
-        // then we add it to an exisitng node 
-        // or we make a new node 
-    // yes ?
-        // increase the count 
+            if ( (word > (node -> keyLeft) ) && (word < (node -> keyRight))){
+                if ((node ->mid) == NULL){
+                    node->mid = createNode(word);
+                    cout << (node->mid) -> keyLeft << " inserted, new count = 1"<<endl;
+                    return;
+                }
+                else {
+                    insertHelp(word, node -> mid);
+                }
+            }
+         }
+    }
+}
+
 
 
  
@@ -115,7 +130,11 @@ string Tst::insert (string word, TstNode* node){ // pointer to a node
      }
     newTstNode -> countLeft = 1;
     newTstNode -> keyLeft = key;
-    newTstNode -> left = newTstNode -> right = newTstNode -> mid = NULL;
+    newTstNode -> left = NULL;
+    newTstNode -> right = NULL;
+    newTstNode -> mid = NULL;
+    newTstNode -> countRight =0;
+    newTstNode -> keyRight = "";
     return newTstNode;
  }
 

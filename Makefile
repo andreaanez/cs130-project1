@@ -2,18 +2,18 @@
 
 CXX=clang++
 
-CXXFLAGS = -std=c++11 -Wall -Wextra -Wno-unused-parameter -Wno-unused-private-field
+CXXFLAGS = -std=c++11 -Wall -Wextra -Wno-unused-parameter -Wno-unused-private-field -g
 
-BINARIES= projectTest, tests
+BINARIES=projectTest
 
 all: ${BINARIES}
 
-projectTest: project1.o #projectTest.o project1.o tddFuncs.o
-	${CXX} $^ -o $@
+projectTest: project1-test.o project1.o tddFuncs.o
+		${CXX} $^ -o $@
 
 tests: ${BINARIES}
-	./projectTest
+		./projectTest
 	
 
 clean:
-	/bin/rm -f ${BINARIES} *.o
+		/bin/rm -f ${BINARIES} *.o

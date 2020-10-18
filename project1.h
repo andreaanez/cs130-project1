@@ -18,7 +18,7 @@ struct TstNode
 
 };
 
-// ** Q : is this how I should be aranging my private and public ?
+
 class Tst 
 {
     private:
@@ -36,7 +36,8 @@ class Tst
             // can use existing functions from insert and delete 
 
          // INSERT if already exists increase count to one
-        std::string insert (std::string word, TstNode* node); 
+        void insert (std::string word);
+        void insertHelp (std::string word, TstNode *node); 
             // Need to make a helper finction to convert words to ASCII number vesctors 
             // Function to search through tree looking to see if number exists in the tre
             // pointer to node that prints word and count 
