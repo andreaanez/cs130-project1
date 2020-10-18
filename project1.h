@@ -32,7 +32,11 @@ class Tst
         // helper function for the Destructor  
         void deleteTst(TstNode *root); 
 
-        // SEARCH 
+        // LOOKUP
+        void lookup(std::string word);
+
+        void lookupHelp(std::string word, TstNode* node);
+
             // can use existing functions from insert and delete 
 
          // INSERT if already exists increase count to one
@@ -44,8 +48,11 @@ class Tst
         TstNode* createNode(std::string key);
         
 
-
         // DELETE 
+        void deleteWord (std::string word);
+        void deleteHelp (std::string word);
+        TstNode* search(std::string word, TstNode* node );
+        TstNode* searchAbove(std::string word, TstNode* node);
 
         // RANGE SEARCH 
     
