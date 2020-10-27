@@ -1,56 +1,66 @@
 #include "project1.h"
-#include "tddFuncs.h"
 #include <iostream>
+#include <vector>
 #include <sstream>
 using namespace std;
 
-int main() {
-  
-  Tst t;
-  //std::ostringstream out1;
 
 
-    t.insert ("expect");
-    t.insert ("expect");
-    t.insert ("cat");
-    t.insert ("dog");
-    t.insert ("rat");
-    t.insert ("girl");
-    t.insert ("dog");
-    t.insert ("horse");
-    t.insert ("rat");
-    t.insert("andrea");
-    t.lookup("america");
-    t.lookup("rat");
-    //t.deleteWord("cat");
-    t.deleteWord("andrea");
-    // t.insert ("girl");
-    // t.insert("apple");
-    // t.insert("andrea");
-    // t.insert ("horse");
-    // t.insert("andrea");
-    // t.insert("anez");
-    // t.insert("ardvark");
-    // t.insert("anteater");
-    // t.insert("america");
-    // t.lookup("expect");
-    // t.lookup("dog");
-    // t.lookup("america");
-    // t.lookup("horse");
-    // t.lookup("rat");
-    // t.lookup("andrea");
+int main(int argc, char** argv) {
+
+    Tst t;
+
+    string funcs = argv[1];
+    vector <string> v;
+    int size = funcs.size();
+    string words; 
+    for (int i=0; i < size; i++){
+        if (funcs[i] == 32){
+           v.push_back(words);
+           words="";
+           i++;
+        }
+        if (funcs[i]== 44){
+            v.push_back(words);
+            words="";
+            i++;
+            i++;
+        }
+        words += funcs[i];
+        if ( i == size -1){
+            v.push_back(words);
+            words="";
+        }
+              
+    }
+    
+
+    int j = v.size();
+    for (int i =0; i < j; i++){
+        if (v[i] == "insert"){
+            t.insert(v[i+1]);
+            i++;
+        }
+        if (v[i] == "delete"){
+            t.deleteWord(v[i+1]);
+            i++;
+        }
+        if (v[i] == "lookup"){
+            t.lookup(v[i+1]);
+            i++;
+        }
+        if (v[i]== "range_search"){
+            t.range_search(v[i+1], v[i+3]);
+            i+=3;
+        }
+    }
+}
 
 
    
 
     
 
-//   ASSERT_EQUALS(expect,out1.str());
-// //   ASSERT_EQUALS(expect2, t.insert("dog"));
-//   ASSERT_EQUALS(expect3, t.insert("expected"));
-//   ASSERT_EQUALS(expect4, t.insert("cat"));
-//   ASSERT_EQUALS(expect5, t.insert("mouse"));
-//   ASSERT_EQUALS(expect6, t.insert("lizard"));
-//   ASSERT_EQUALS(expect7, t.insert("rat"));
-  return 0;
-}
+  
+
+  

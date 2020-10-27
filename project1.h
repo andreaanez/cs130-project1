@@ -32,6 +32,8 @@ class Tst
         // helper function for the Destructor  
         void deleteTst(TstNode *root); 
 
+
+
         // LOOKUP
         void lookup(std::string word);
 
@@ -51,11 +53,33 @@ class Tst
         // DELETE 
         void deleteWord (std::string word);
         void deleteHelp (std::string word);
+        
+        //finds the node 
         TstNode* search(std::string word, TstNode* node );
+        // finds the node above the node so we can set the pointer to NULL
         TstNode* searchAbove(std::string word, TstNode* node);
 
+        //finds the node of the sucessor to relpace an element taken from the left side of a node 
+        void sucessorRight(std::string word, TstNode* node);
+        void sucessorLeft(std:: string word, TstNode* node);
+
+        // a recursive function to search for the left most node 
+        TstNode* recursiveLeft(TstNode* node);
+        TstNode* recursiveRight(TstNode* node);
+
+        // replacing the element after the sucessosr has been found
+        void elementLeft(TstNode* node2, TstNode* node);
+        void elementRight(TstNode* node2, TstNode* node);
+
+        //checking to see if the sucessor can be found easily in partially empty nodes
+        int checkparLeft(std::string, TstNode* node);
+        int checkparRight(std::string, TstNode* node);
+
+
         // RANGE SEARCH 
-    
+        void range_search(std::string word1, std::string word2);
+        void range_searchHelper(std::string word1, std::string word2, TstNode* node);
+        
     
 };
 #endif
